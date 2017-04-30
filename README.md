@@ -1,0 +1,37 @@
+# bsef15m543
+#!/usr/bin/env python
+process_queue = []
+extra_queue=[]
+waiting_time=[]
+total_wtime = 0
+total_turnaround=0
+turnaround_queue=[]
+tt=0
+tt1=0
+n = int(input('Enter the total no of processes: '))
+for i in range(n):
+    process_queue.append([])#append a list object to the list
+    process_queue[i].append(input('Enter p_name: '))
+    process_queue[i].append(int(input('Enter p_arrival: ')))
+    
+    process_queue[i].append(int(input('Enter p_bust: ')))
+process_queue.sort(key = lambda process_queue:process_queue[2])
+tt=process_queue[0][1]
+for i in range(n):
+ if i==0:
+  extra_queue.append(process_queue[i][1])
+ tt1=tt1+process_queue[i][2]
+ turnaround_queue.append(tt1)
+ tt=tt+process_queue[i][2]
+ extra_queue.append(tt)
+for i in range(n):
+    waiting_time.append(extra_queue[i]-process_queue[i][1])
+print ('ProcessName\tArrivalTime\tBurstTime\twaiting_time\tturnarround_time')
+for i in range(n):
+ print(process_queue[i][0],'\t\t',process_queue[i][1],'\t\t',process_queue[i][2],'\t\t',waiting_time[i],'\t\t',turnaround_queue[i])
+ total_wtime=total_wtime+waiting_time[i]
+ total_turnaround=total_turnaround+turnaround_queue[i]
+print ('Total waiting time: ',total_wtime)
+print ('Average waiting time: ',(total_wtime/n))
+print ('Total turn arround  time: ',total_turnaround)
+print ('Average turn arround  time: ',(total_turnaround/n))
